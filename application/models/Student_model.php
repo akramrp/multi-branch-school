@@ -155,7 +155,7 @@ class Student_model extends MY_Model
             'permanent_address' => $row['PermanentAddress'],
             'category_id' => $row['CategoryID'],
             'admission_date' => date("Y-m-d", strtotime($row['AdmissionDate'])),
-            'register_no' => substr(app_generate_hash(), 4, 7),
+            'register_no' => strtoupper(substr(app_generate_hash(), 4, 7)),
             'photo' => 'defualt.png',
             'email' => $row['StudentEmail'],
         );

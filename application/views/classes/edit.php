@@ -4,11 +4,11 @@
 			<li>
 				<a href="<?=base_url('classes')?>"><i class="fas fa-graduation-cap"></i> <?=translate('class')?></a>
 			</li>
-<?php if (get_permission('section', 'is_view')): ?>
+			<?php if (get_permission('section', 'is_view')): ?>
 			<li>
 				<a href="<?=base_url('sections')?>"><i class="fas fa-award"></i> <?=translate('section')?></a>
 			</li>
-<?php endif; ?>
+			<?php endif; ?>
 			<li class="active">
 				<a href="#edit" data-toggle="tab"><i class="fas fa-pen-nib"></i> <?=translate('edit_class')?></a>
 			</li>
@@ -40,7 +40,7 @@
 					<div class="form-group">
 						<label class="col-md-3 control-label"><?=translate('class_numeric')?></label>
 						<div class="col-md-6">
-							<input type="number" class="form-control" name="name_numeric" value="<?=$class['name_numeric']?>"/>
+							<input type="number" class="form-control onlyNumber" name="name_numeric" value="<?=$class['name_numeric']?>"/>
 							<span class="error"></span>
 						</div>
 					</div>

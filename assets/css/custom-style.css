@@ -3854,6 +3854,12 @@ span.error{
 	padding: 0;
 }
 
+span.success{
+	color: #37a509;
+	font-size: 0.9em;
+	padding: 0;
+}
+
 span.error p{
 	margin: 2px 0 2px !important;
 }
@@ -12835,7 +12841,11 @@ html.dark .thumbnail {
 .signatureTC {
 	margin-top: 50px;
 	text-align: right;
-	font-weight: 600;
+}
+
+.signatureTC div{
+	display: inline-block; 
+	text-align: center;
 }
 
 .signatureTC p {

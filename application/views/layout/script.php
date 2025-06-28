@@ -30,6 +30,12 @@
 <script src="<?php echo base_url('assets/js/app.fn.js')?>"></script>
 
 <script type="text/javascript">
+	$('.onlyNumber').keyup(function(e) {
+		if (/\D/g.test(this.value)) {
+			this.value = this.value.replace(/\D/g, '');
+		}
+	});
+
 	jQuery.extend(jQuery.validator.messages, {
 		required: "<?=translate('this_value_is_required')?>",
 		email: "<?=translate('enter_valid_email')?>",

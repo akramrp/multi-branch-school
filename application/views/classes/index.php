@@ -4,16 +4,16 @@
 			<li class="active">
 				<a href="<?=base_url('classes')?>"><i class="fas fa-graduation-cap"></i> <?=translate('class')?></a>
 			</li>
-<?php if (get_permission('section', 'is_view')): ?>
+			<?php if (get_permission('section', 'is_view')): ?>
 			<li>
 				<a href="<?=base_url('sections')?>"><i class="fas fa-award"></i> <?=translate('section')?></a>
 			</li>
-<?php endif; ?>
+			<?php endif; ?>
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane active">
 				<div class="row">
-<?php if (get_permission('classes', 'is_add')): ?>
+				<?php if (get_permission('classes', 'is_add')): ?>
 					<div class="col-md-5 pr-xs">
 						<section class="panel panel-custom">
 							<div class="panel-heading panel-heading-custom">
@@ -39,7 +39,7 @@
 								</div>
 								<div class="form-group">
 									<label class="control-label"><?=translate('class_numeric')?></label>
-									<input type="text" class="form-control" name="name_numeric" value="" />
+									<input type="text" class="form-control onlyNumber" name="name_numeric" value="" />
 									<span class="error"></span>
 								</div>
 								<div class="form-group">
@@ -68,7 +68,7 @@
 							<?php echo form_close();?>
 						</section>
 					</div>
-<?php endif; ?>
+					<?php endif; ?>
 					<div class="col-md-<?php if (get_permission('classes', 'is_add')){ echo "7 pl-xs"; }else{ echo "12"; } ?>">
 						<section class="panel panel-custom">
 							<header class="panel-heading panel-heading-custom">

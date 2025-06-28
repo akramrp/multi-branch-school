@@ -860,8 +860,7 @@ class Student extends Admin_Controller
     }
 
     // student quick details
-    public function quickDetails()
-    {
+    public function quickDetails() {
         $id = $this->input->post('student_id');
         $this->db->select('student.*,enroll.student_id,enroll.roll,student_category.name as cname');
         $this->db->from('enroll');
@@ -885,27 +884,35 @@ class Student extends Admin_Controller
         echo json_encode($data);
     }
 
-    public function tcPageData()
-    {
+    public function tcPageData() {
         $id = $this->input->post('student_id');
-        $this->db->select('student.*,enroll.student_id,enroll.roll,student_category.name as cname');
+        $this->db->select('student.*,enroll.student_id,enroll.roll,student_category.name as cname, parent.father_name, parent.mother_name, class.name, class.name_numeric');
         $this->db->from('enroll');
         $this->db->join('student', 'student.id = enroll.student_id', 'inner');
         $this->db->join('student_category', 'student_category.id = student.category_id', 'inner');
+        $this->db->join('parent', 'parent.id = student.parent_id', 'inner');
+        $this->db->join('class', 'class.id = enroll.class_id', 'inner');
         $this->db->where('enroll.id', $id);
         $row = $this->db->get()->row();
+        // echo $this->db->last_query();
+        // echo'<pre>'; print_r($row); die;
+
         $this->data['data'] = $row;
+        $this->data['full_name'] = ucwords($row->first_name . " " . $row->last_name);
+        if($row->birthday){
+            $bdayExp = explode('-', $row->birthday);
+            $this->data['bday_in_words'] = ucwords(numberToWords($bdayExp[2])) .' '. monthName($bdayExp[1]) .', '. ucwords(numberToWords($bdayExp[0]));
+        }
         $tc_title = strtolower($row->first_name . " " . $row->last_name);
         $this->data['tc_title'] = str_replace(' ', '_', $tc_title).'_tc';
-        $this->data['school_reg_no'] = strtoupper('up785jk86357');
-        $this->data['school_contact_no'] = '9876543210, 9876789765';
-        $this->data['full_name'] = ucwords($row->first_name . " " . $row->last_name);
-        
+        $this->data['tc_no'] = date('Y').'/'.str_pad(date('m'), 3, '0', STR_PAD_LEFT);
+
+        $this->data['institute'] = $this->db->select('*')->where(array('id' => 1))->get('global_settings')->row();
+        // echo '<pre>'; print_r($this->session->all_userdata()); echo '</pre>';die;
         $this->load->view('student/transfer_certificate', $this->data);
     }
 
-    function bulk_delete()
-    {
+    function bulk_delete() {
         $status = 'success';
         $message = translate('information_deleted');
         if (get_permission('student', 'is_delete')) {
@@ -921,6 +928,20 @@ class Student extends Admin_Controller
             $message = translate('access_denied');
             $status = 'error';
         }
+        echo json_encode(array('status' => $status, 'message' => $message));
+    }
+
+    public function after_tc_inactive() {
+        $status = true;
+        $message = translate('information_has_been_updated_successfully');
+        $student_id = $this->input->post('student_id');
+        #save
+        $tcDate = ['student_id' => $student_id, 'tc_date' => date('Y-m-d')];
+        $this->db->insert('transfer_certificate', $tcDate);
+        #update
+        $this->db->where('role', 7);
+        $this->db->where('user_id', $student_id);
+        $this->db->update('login_credential', array('active' => 0));
         echo json_encode(array('status' => $status, 'message' => $message));
     }
 

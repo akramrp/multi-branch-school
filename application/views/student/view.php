@@ -5,7 +5,7 @@
 			<header class="panel-heading">
 				<h4 class="panel-title"><?=translate('select_ground')?></h4>
 			</header>
-			<?php echo form_open($this->uri->uri_string(), array('class' => 'validate'));?>
+			<?=form_open($this->uri->uri_string(), array('class' => 'validate'));?>
 			<div class="panel-body">
 				<div class="row mb-sm">
 				<?php if (is_superadmin_loggedin() ): ?>
@@ -20,7 +20,7 @@
 						</div>
 					</div>
 				<?php endif; ?>
-					<div class="col-md-<?php echo $widget; ?> mb-sm">
+					<div class="col-md-<?=$widget; ?> mb-sm">
 						<div class="form-group">
 							<label class="control-label"><?=translate('class')?> <span class="required">*</span></label>
 							<?php
@@ -30,7 +30,7 @@
 							?>
 						</div>
 					</div>
-					<div class="col-md-<?php echo $widget; ?> mb-sm">
+					<div class="col-md-<?=$widget; ?> mb-sm">
 						<div class="form-group">
 							<label class="control-label"><?=translate('section')?> <span class="required">*</span></label>
 							<?php
@@ -49,7 +49,7 @@
 					</div>
 				</div>
 			</footer>
-			<?php echo form_close();?>
+			<?=form_close();?>
 		</section>
 
 		<?php if (isset($students)):?>
@@ -60,7 +60,7 @@
 						<i class="fas fa-trash-alt"></i> <?=translate('bulk_delete')?>
 					</button>
 				</div>
-				<h4 class="panel-title"><i class="fas fa-user-graduate"></i> <?php echo translate('student_list');?></h4>
+				<h4 class="panel-title"><i class="fas fa-user-graduate"></i> <?=translate('student_list');?></h4>
 			</header>
 			<div class="panel-body mb-md">
 				<table class="table table-bordered table-condensed table-hover table-export">
@@ -103,9 +103,9 @@
 									</label>
 								</div>
 							</td>
-							<td class="center"><img class="rounded" src="<?php echo get_image_url('student', $row['photo']); ?>" width="40" height="40"></td>
-							<td><?php echo $row['roll'];?></td>
-							<td class="<?=($row['active'] == 0 ? 'text-danger' : '')?>"><?php echo $row['fullname'];?></td>
+							<td class="center"><img class="rounded" src="<?=get_image_url('student', $row['photo']); ?>" width="40" height="40"></td>
+							<td><?=$row['roll'];?></td>
+							<td <?=($row['active'] == 0 ? 'class="text-danger" title="Deactivated"' : '')?>><?=$row['fullname'];?></td>
 							<td>
 							<?php
 								if(!empty($row['birthday'])){
@@ -118,15 +118,15 @@
 								}
 							?>
 							</td>
-							<td><?php echo $row['register_no'];?></td>
-							<td><?php echo $row['class_name'];?></td>
-							<td><?php echo $row['section_name'];?></td>
-							<td><?php echo (!empty($row['parent_id']) ? get_type_name_by_id('parent', $row['parent_id']) : 'N/A');?></td>
+							<td><?=$row['register_no'];?></td>
+							<td><?=$row['class_name'];?></td>
+							<td><?=$row['section_name'];?></td>
+							<td><?=(!empty($row['parent_id']) ? get_type_name_by_id('parent', $row['parent_id']) : 'N/A');?></td>
 						<?php
 						if (count($show_custom_fields)) {
 							foreach ($show_custom_fields as $fields) {
 						?>
-							<td><?php echo get_table_custom_field_value($fields['id'], $row['id']);?></td>
+							<td><?=get_table_custom_field_value($fields['id'], $row['id']);?></td>
 						<?php } } ?>
 							<td>
 								<div class="progress progress-xl m-none prb-mw">
@@ -135,24 +135,25 @@
 							</td>
 							<td class="min-w-lg">
 								<!-- quick view -->
-								<a href="javascript:void(0);" onclick="studentQuickView('<?=$row['id']?>');" class="btn btn-default btn-circle icon" data-toggle="tooltip"
+								<a href="javascript:void(0);" onclick="studentQuickView('<?=$row['id']?>');" class="btn btn-info btn-circle icon" data-toggle="tooltip"
 								data-original-title="<?=translate('quick_view')?>">
 									<i class="fas fa-qrcode"></i>
 								</a>
-								<a href="javascript:void(0);" onclick="studentTCView('<?=$row['id']?>');" class="btn btn-default btn-circle icon" data-toggle="tooltip"
-								data-original-title="<?=translate('transefer_certificate')?>">
-									<i class="fas fa-file-alt"></i>
-								</a>
 							<?php if (get_permission('student', 'is_edit')): ?>
 								<!-- update link -->
-								<a href="<?php echo base_url('student/profile/' . $row['student_id']);?>" class="btn btn-default btn-circle icon" data-toggle="tooltip"
+								<a href="<?=base_url('student/profile/' . $row['student_id']);?>" class="btn btn-success btn-circle icon" data-toggle="tooltip"
 								data-original-title="<?=translate('details')?>">
 									<i class="far fa-arrow-alt-circle-right"></i>
 								</a>
 							<?php endif; if (get_permission('student', 'is_delete')): ?>
 								<!-- delete link -->
-								<?php echo btn_delete('student/delete_data/' . $row['id'] . '/' . $row['student_id']);?>
+								<?=btn_delete('student/delete_data/' . $row['id'] . '/' . $row['student_id']);?>
 							<?php endif; ?>
+
+								<a href="javascript:void(0);" onclick="studentTCView('<?=$row['id']?>');" class="btn btn-warning btn-circle icon" data-toggle="tooltip"
+								data-original-title="<?=translate('show_transefer_certificate')?>">
+									<i class="fas fa-file-alt"></i>
+								</a>
 							</td>
 						</tr>
 						<?php endforeach;?>
@@ -244,16 +245,16 @@
 			});
 			if (arrayID.length != 0) {
 				swal({
-					title: "<?php echo translate('are_you_sure')?>",
-					text: "<?php echo translate('delete_this_information')?>",
+					title: "<?=translate('are_you_sure')?>",
+					text: "<?=translate('delete_this_information')?>",
 					type: "warning",
 					showCancelButton: true,
 					confirmButtonClass: "btn btn-default swal2-btn-default",
 					cancelButtonClass: "btn btn-default swal2-btn-default",
-					confirmButtonText: "<?php echo translate('yes_continue')?>",
-					cancelButtonText: "<?php echo translate('cancel')?>",
+					confirmButtonText: "<?=translate('yes_continue')?>",
+					cancelButtonText: "<?=translate('cancel')?>",
 					buttonsStyling: false,
-					footer: "<?php echo translate('deleted_note')?>"
+					footer: "<?=translate('deleted_note')?>"
 				}).then((result) => {
 					if (result.value) {
 						$.ajax({
@@ -263,7 +264,7 @@
 							data: { array_id : arrayID },
 							success:function(data) {
 								swal({
-								title: "<?php echo translate('deleted')?>",
+								title: "<?=translate('deleted')?>",
 								text: data.message,
 								buttonsStyling: false,
 								showCloseButton: true,

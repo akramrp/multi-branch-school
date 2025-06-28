@@ -45,6 +45,18 @@
 					</div>
 				</div>
 				<div class="form-group">
+					<label class="col-md-3 control-label"><?=translate('institution_reg_no');?></label>
+					<div class="col-md-6">
+						<input type="text" class="form-control" name="reg_no" value="<?=set_value('reg_no', $global_config['reg_no'])?>" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label"><?=translate('recognized_board');?></label>
+					<div class="col-md-6">
+						<input type="text" class="form-control" name="recognized_board" value="<?=set_value('recognized_board', $global_config['recognized_board'])?>" />
+					</div>
+				</div>
+				<div class="form-group">
 					<label class="col-md-3 control-label"><?=translate('mobile_no');?></label>
 					<div class="col-md-6">
 						<input type="text" class="form-control" name="mobileno" value="<?=set_value('mobileno', $global_config['mobileno'])?>" />
@@ -54,6 +66,12 @@
 					<label class="col-md-3 control-label"><?=translate('address');?></label>
 					<div class="col-md-6">
 						<textarea name="address" rows="2" class="form-control" aria-required="true"><?=set_value('address', $global_config['address'])?></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label"><?=translate('short_address');?></label>
+					<div class="col-md-6">
+						<input type="text" class="form-control" name="short_address" value="<?=set_value('short_address', $global_config['short_address'])?>" />
 					</div>
 				</div>
 				<div class="form-group">

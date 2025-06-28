@@ -407,3 +407,75 @@ function slugify($text){
     $text = strtolower($text);
     return $text;
 }
+
+function monthName($num) {
+    if (is_numeric($num)) {
+        $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        return $months[$num-1];
+    } else {
+        return null;
+    }
+}
+
+
+function numberToWords($number) {
+    $words = array(
+        0 => '', 1 => 'one', 2 => 'two', 3 => 'three',
+        4 => 'four', 5 => 'five', 6 => 'six',
+        7 => 'seven', 8 => 'eight', 9 => 'nine',
+        10 => 'ten', 11 => 'eleven', 12 => 'twelve',
+        13 => 'thirteen', 14 => 'fourteen', 15 => 'fifteen',
+        16 => 'sixteen', 17 => 'seventeen', 18 => 'eighteen',
+        19 => 'nineteen', 20 => 'twenty', 30 => 'thirty',
+        40 => 'forty', 50 => 'fifty', 60 => 'sixty',
+        70 => 'seventy', 80 => 'eighty', 90 => 'ninety'
+    );
+
+    $digits = ['', 'thousand', 'million', 'billion'];
+
+    if ($number == 0) return 'zero';
+
+    $result = '';
+    $i = 0;
+
+    while ($number > 0) {
+        $chunk = $number % 1000;
+        if ($chunk != 0) {
+            $chunkWords = '';
+            $hundreds = intval($chunk / 100);
+            $remainder = $chunk % 100;
+
+            if ($hundreds > 0) {
+                $chunkWords .= $words[$hundreds] . ' hundred ';
+            }
+
+            if ($remainder > 0) {
+                if ($remainder < 20) {
+                    $chunkWords .= $words[$remainder];
+                } else {
+                    $chunkWords .= $words[intval($remainder / 10) * 10];
+                    if ($remainder % 10 > 0) {
+                        $chunkWords .= '-' . $words[$remainder % 10];
+                    }
+                }
+            }
+            $result = trim($chunkWords) . ' ' . $digits[$i] . ' ' . $result;
+        }
+        $number = intval($number / 1000);
+        $i++;
+    }
+    return trim($result);
+}
+
+function numberToRoman($num) {
+    $map = [ 'M'  => 1000, 'CM' => 900, 'D'  => 500, 'CD' => 400, 'C'  => 100, 'XC' => 90, 'L'  => 50, 'XL' => 40, 'X'  => 10, 'IX' => 9, 'V'  => 5, 'IV' => 4, 'I'  => 1];
+
+    $roman = '';
+    foreach ($map as $romanDigit => $value) {
+        while ($num >= $value) {
+            $roman .= $romanDigit;
+            $num -= $value;
+        }
+    }
+    return $roman;
+}
