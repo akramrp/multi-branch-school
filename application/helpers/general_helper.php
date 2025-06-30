@@ -409,12 +409,11 @@ function slugify($text){
 }
 
 function monthName($num) {
-    if (is_numeric($num)) {
-        $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        return $months[$num-1];
-    } else {
-        return null;
+    if (!is_numeric($num)) {
+        return $num;
     }
+    $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    return $months[$num-1];
 }
 
 
@@ -468,6 +467,10 @@ function numberToWords($number) {
 }
 
 function numberToRoman($num) {
+    if (!is_numeric($num)) {
+        return $num;
+    }
+
     $map = [ 'M'  => 1000, 'CM' => 900, 'D'  => 500, 'CD' => 400, 'C'  => 100, 'XC' => 90, 'L'  => 50, 'XL' => 40, 'X'  => 10, 'IX' => 9, 'V'  => 5, 'IV' => 4, 'I'  => 1];
 
     $roman = '';

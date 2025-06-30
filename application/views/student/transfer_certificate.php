@@ -33,6 +33,7 @@
 			<!-- <div class="visible-print"></div> -->
             <!-- <body> -->
                 <div class="containerTC">
+                    <img src="<?=base_url('uploads/app_image/logo.png')?>" class="watermark" alt="Watermark">
                     <div class="headerTC">
                         <div class="flex-lineTC">
                             <p>School Reg. No. <?=$institute->reg_no?></p>
@@ -57,7 +58,7 @@
                         </div>
                         <p>This is to certify that Master/Miss <strong><span class="dotsTC"> <?=$full_name?> </span></strong> Son/Daughter of Shri <strong><span class="dotsTC"> <?=$data->father_name?> </span></strong> and Smt. <strong><span class="dotsTC"> <?=$data->mother_name?> </span></strong> was admitted into this school on <strong><span class="dotsTC"> <?=_d($data->admission_date)?> </span></strong> on a transfer certificate from <strong><span class="dotsTC"> <?=_d($data->admission_date)?> </span></strong> and left on <strong><span class="dotsTC"><?=_d(date('Y-m-d'))?></span></strong> with a good character.</p>
 
-                        <p>He / She was then studying in class <strong><span class="dotsTC"> <?=numberToRoman($data->name_numeric)?> </span></strong> of the
+                        <p>He / She was then studying in class <strong><span class="dotsTC"> <?=numberToRoman($data->name_numeric ? $data->name_numeric : $data->name)?> </span></strong> of the
                             <strong><span class="dotsTC"><?=$institute->recognized_board?></span></strong> stream, the school year beginning from April to March.
                         </p>
 
@@ -66,7 +67,10 @@
                         <p>(The following additional information must be supplied if the scholar left at the end of the school year) </p>
                         <br />
                         <br />
-                        <p>Promotion has been <strong><span class="dotsTC"> <?=numberToRoman($data->name_numeric+1)?> </span></strong> </p>
+                        <div class="flex-lineTC">
+                            <p>Promotion has been <strong><span class="dotsTC"> <?=numberToRoman($data->name_numeric+1)?> </span></strong> </p>
+                            <p>PEN Number: <strong><span class="dotsTC"> <?=$data->pen?> </span></strong> </p>
+                        </div>
                         <br />
                         <p>Date: <strong><span class="dotsTC"><?=_d(date('Y-m-d'))?></span></strong></p>
                     </div>
@@ -83,8 +87,6 @@
                     <br />
                 </div>
             <!-- </body> -->
-			
-
 		</div>
 	</div>
 </div>
